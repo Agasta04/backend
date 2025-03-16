@@ -15,25 +15,14 @@ process.env.TZ = "Asia/Jakarta";
 console.log("Zona Waktu Server:", new Date().toString());
 
 // ✅ Konfigurasi koneksi database MySQL
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  timezone: process.env.DB_TIMEZONE,
 });
-
-pool.getConnection((err, connection) => {
-  if (err) {
-    console.error("Database connection failed:", err.stack);
-    return;
-  }
-  console.log("Connected to database.");
-  connection.release();
-});
-
-module.exports = pool;
 
 // ✅ Koneksi ke database
 db.connect((err) => {
