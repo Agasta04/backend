@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const app = express();
-b;
 app.use(bodyParser.json());
 app.use(cors());
 
