@@ -1509,6 +1509,10 @@ app.put("/admin/:id_admin/password", async (req, res) => {
   );
 });
 
+app.get("/", (req, res) => {
+  res.send("Backend API is running...");
+});
+
 // ✅Jalankan server Node.js
 app.listen(3000, "0.0.0.0", () => {
   console.log("Server berjalan di http://localhost:3000");
