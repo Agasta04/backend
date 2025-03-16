@@ -37,55 +37,66 @@ app.use((req, res, next) => {
 });
 
 // ✅ Endpoint Login dengan bcrypt
-app.post("/login", (req, res) => {
-  const { username, password, role } = req.body;
+app.post("/login", async (req, res) => {
+  console.log("Login request received:", req.body);
 
+  const { username, password, role } = req.body;
   if (!username || !password || !role) {
     return res.status(400).send({ message: "Data login tidak lengkap." });
   }
 
   let query = "";
   let userRole = role.toLowerCase();
-
   if (userRole === "ustadz") {
     query =
-      "SELECT id_ustadz, nama_ustadz AS nama, telepon, alamat, password FROM ustadz WHERE nama_ustadz = ?";
+      "SELECT id_ustadz, nama_ustadz AS nama, password FROM ustadz WHERE nama_ustadz = ?";
   } else if (userRole === "santri") {
     query =
-      "SELECT id_santri, nama_santri AS nama, wali_santri, telepon_wali, alamat, password FROM santri WHERE nama_santri = ?";
+      "SELECT id_santri, nama_santri AS nama, password FROM santri WHERE nama_santri = ?";
   } else if (userRole === "admin") {
     query =
-      "SELECT id_admin, nama_admin AS nama, email, telepon, alamat, password FROM admin WHERE nama_admin = ?";
+      "SELECT id_admin, nama_admin AS nama, password FROM admin WHERE nama_admin = ?";
   } else {
     return res.status(400).send({ message: "Role tidak valid." });
   }
 
   db.query(query, [username], async (err, results) => {
     if (err) {
-      console.error(err);
+      console.error("Database error:", err);
       return res.status(500).send({ message: "Terjadi kesalahan server." });
     }
 
     if (results.length === 0) {
+      console.log("User not found:", username);
       return res.status(401).send({ message: "Username atau password salah." });
     }
 
     const user = results[0];
+    console.log("User found:", user);
 
-    // ✅ Cek password dengan bcrypt.compare()
-    const match = await bcryptjs.compare(password, user.password);
-    if (!match) {
-      return res.status(401).send({ message: "Username atau password salah." });
+    try {
+      const match = await bcryptjs.compare(password, user.password);
+      if (!match) {
+        console.log("Password mismatch for user:", username);
+        return res
+          .status(401)
+          .send({ message: "Username atau password salah." });
+      }
+
+      delete user.password;
+      console.log("Login berhasil:", user);
+
+      res.status(200).send({
+        message: "Login berhasil",
+        role: userRole,
+        user,
+      });
+    } catch (bcryptError) {
+      console.error("Bcrypt error:", bcryptError);
+      return res.status(500).send({
+        message: "Terjadi kesalahan server saat verifikasi password.",
+      });
     }
-
-    // Hapus password sebelum dikirim ke frontend
-    delete user.password;
-
-    res.status(200).send({
-      message: "Login berhasil",
-      role: userRole,
-      user, // Tetap mengirimkan id_ustadz, id_santri, atau id_admin
-    });
   });
 });
 
