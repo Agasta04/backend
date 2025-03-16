@@ -75,7 +75,12 @@ app.post("/login", async (req, res) => {
     console.log("User found:", user);
 
     try {
-      const match = await bcryptjs.compare(password, user.password);
+      // ✅ Debugging: Cek password di database
+      console.log("Password dari database:", user.password);
+
+      // ✅ Pastikan perbandingan password menggunakan bcryptjs
+      const match = await bcrypt.compare(password, user.password); // Sebelumnya `bcryptjs.compare`
+
       if (!match) {
         console.log("Password mismatch for user:", username);
         return res
