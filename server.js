@@ -1135,6 +1135,7 @@ app.get("/ustadz", (req, res) => {
   });
 });
 
+// ✅ Endpoint untuk menambah data ustadz
 app.post("/add-ustadz", async (req, res) => {
   const {
     nama_ustadz,
@@ -1152,6 +1153,9 @@ app.post("/add-ustadz", async (req, res) => {
       .json({ error: "Nama, Password, Email, dan Jenis Kelamin wajib diisi" });
   }
 
+  // Konversi jenis_kelamin ke ENUM yang sesuai dengan database
+  let jk = jenis_kelamin.toLowerCase() === "laki-laki" ? "L" : "P";
+
   try {
     // Hash password menggunakan bcrypt
     const saltRounds = 10;
@@ -1162,15 +1166,7 @@ app.post("/add-ustadz", async (req, res) => {
 
     db.query(
       query,
-      [
-        nama_ustadz,
-        hashedPassword,
-        jabatan,
-        telepon,
-        email,
-        alamat,
-        jenis_kelamin,
-      ],
+      [nama_ustadz, hashedPassword, jabatan, telepon, email, alamat, jk],
       (err, result) => {
         if (err) {
           console.error("Error saat menambah ustadz:", err);
