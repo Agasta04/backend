@@ -1551,5 +1551,5 @@ app.put("/admin/:id_admin/password", async (req, res) => {
 
 // ✅Jalankan server Node.js
 app.listen(3000, "0.0.0.0", () => {
-  console.log("Server berjalan di http://localhost:3000");
+  console.log(`Server running on port ${PORT}`);
 });
