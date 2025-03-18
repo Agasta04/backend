@@ -192,7 +192,7 @@ INSERT INTO `santri` (`id_santri`, `nama_santri`, `jenis_kelamin`, `password`, `
 CREATE TABLE `ustadz` (
   `id_ustadz` int(11) NOT NULL,
   `nama_ustadz` varchar(100) NOT NULL,
-  `jenis_kelamin` enum('Lali-laki','Perempuan') NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `jabatan` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `telepon` varchar(15) DEFAULT NULL,
@@ -206,12 +206,12 @@ CREATE TABLE `ustadz` (
 --
 
 INSERT INTO `ustadz` (`id_ustadz`, `nama_ustadz`, `jenis_kelamin`, `jabatan`, `password`, `telepon`, `email`, `alamat`, `created_at`) VALUES
-(1, 'Hasan', '', 'Ustadz Asrama Putra', '$2b$10$q50lcdh/kMCV63Vy3kiZKO.W2wKT9T87/yx2HK5HEUvgOGNRYpesG', '081345678901', 'ustadz@gmail.com', 'Jl. Islami No.10', '2025-02-11 05:52:42'),
+(1, 'Hasan', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$q50lcdh/kMCV63Vy3kiZKO.W2wKT9T87/yx2HK5HEUvgOGNRYpesG', '081345678901', 'ustadz@gmail.com', 'Jl. Islami No.10', '2025-02-11 05:52:42'),
 (2, 'Fatimah', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$4PoiXriuuDj7DmK23tEZteseBFR8AzpMUT5bz8GrBmBsKnDTSCk1q', '082456789012', 'ustadz@gmail.com', 'Jl. Madani No.12', '2025-02-11 05:52:42'),
-(3, 'Ali', '', 'Ustadz Asrama Putra', '$2b$10$ITG3qIyaZjElC52.d7Dfqul6n9LO5vkAKRp2bbvDckHUtzL5sUqbS', '083567890123', 'ustadz@gmail.com', 'Jl. Hidayah No.15', '2025-02-11 05:52:42'),
+(3, 'Ali', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$ITG3qIyaZjElC52.d7Dfqul6n9LO5vkAKRp2bbvDckHUtzL5sUqbS', '083567890123', 'ustadz@gmail.com', 'Jl. Hidayah No.15', '2025-02-11 05:52:42'),
 (4, 'Aisyah', 'Perempuan', 'Ustadzah Asrama Putri', '$2b$10$5YlFvMDnETKAi5Fnqk6C6uLd76ndf9HrQpMuqZOyWUFx7VPfnXIy2', '084678901234', 'aisyah@gmail.com', 'Jl. Barokah No.18', '2025-02-11 05:52:42'),
-(7, 'Bayu', '', 'Ustadz Asrama Putra', '$2b$10$mPAh9Cq.pxVuKI9JMsPewOIfVxLnVyvV0dEmrhhiyjw3LBrdtUYy.', '09886767123', 'bayu@gmail.com', 'Desa pingit, Kecamatan Rakit', '2025-02-15 06:57:57'),
-(10, 'Hanan', 'Lali-laki', 'Ustadz Asrama Putra', '$2b$10$qYMijzzUMTWBC09xhAgKVuqp2m./qQZeeRx0rRxFBu2WigjJwayri', '0123456789', 'hanan@gmai.com', 'Dukuwaluh', '2025-02-28 15:18:37'),
+(7, 'Bayu', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$mPAh9Cq.pxVuKI9JMsPewOIfVxLnVyvV0dEmrhhiyjw3LBrdtUYy.', '09886767123', 'bayu@gmail.com', 'Desa pingit, Kecamatan Rakit', '2025-02-15 06:57:57'),
+(10, 'Hanan', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$qYMijzzUMTWBC09xhAgKVuqp2m./qQZeeRx0rRxFBu2WigjJwayri', '0123456789', 'hanan@gmai.com', 'Dukuwaluh', '2025-02-28 15:18:37'),
 (11, 'Afanin', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$bCwKzzTHVORy.bQc74d83u9TmGAloqDduD9atcsyDlLWavc3EVMQO', '08123456798', 'afanin@gmail.com', 'Banyumas', '2025-03-07 15:10:03');
 
 --
