@@ -340,14 +340,14 @@ app.put("/santri/:id_santri/password", async (req, res) => {
       const storedPassword = results[0].password;
 
       // ✅ Bandingkan password lama dengan yang diinput
-      const isMatch = await bcryptjs.compare(oldPassword, storedPassword);
+      const isMatch = await bcrypt.compare(oldPassword, storedPassword);
       if (!isMatch) {
         return res.status(401).send({ message: "Password lama salah." });
       }
 
       // ✅ Hash password baru sebelum menyimpannya
       const saltRounds = 10;
-      const hashedPassword = await bcryptjs.hash(newPassword, saltRounds);
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
       // ✅ Update password & password_plain di database
       db.query(
@@ -751,14 +751,14 @@ app.put("/ustadz/:id_ustadz/password", async (req, res) => {
       const storedPassword = results[0].password;
 
       // ✅ Bandingkan password lama dengan yang diinput
-      const isMatch = await bcryptjs.compare(oldPassword, storedPassword);
+      const isMatch = await bcrypt.compare(oldPassword, storedPassword);
       if (!isMatch) {
         return res.status(401).send({ message: "Password lama salah." });
       }
 
       // ✅ Hash password baru sebelum menyimpannya
       const saltRounds = 10;
-      const hashedPassword = await bcryptjs.hash(newPassword, saltRounds);
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
       // Update password di database
       db.query(
@@ -988,7 +988,7 @@ app.post("/add-santri", async (req, res) => {
   try {
     // ✅ Hash password sebelum menyimpannya ke database
     const saltRounds = 10;
-    const hashedPassword = await bcryptjs.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // ✅ Simpan data santri dengan password yang telah dienkripsi dan jenis kelamin
     const insertSantri =
@@ -1073,7 +1073,7 @@ app.put("/reset-password-santri/:id", async (req, res) => {
 
   try {
     // Hash password sebelum disimpan ke database
-    const hashedPassword = await bcryptjs.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Query untuk update password santri berdasarkan ID
     const sql = "UPDATE santri SET password = ? WHERE id_santri = ?";
@@ -1155,7 +1155,7 @@ app.post("/add-ustadz", async (req, res) => {
   try {
     // Hash password menggunakan bcrypt
     const saltRounds = 10;
-    const hashedPassword = await bcryptjs.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const query = `INSERT INTO ustadz (nama_ustadz, password, jabatan, telepon, email, alamat, jenis_kelamin) 
                    VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -1224,7 +1224,7 @@ app.put("/reset-password/:id", async (req, res) => {
   try {
     // Hash password baru
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const query = `UPDATE ustadz SET password = ? WHERE id_ustadz = ?`;
     db.query(query, [hashedPassword, id], (err, result) => {
@@ -1526,14 +1526,14 @@ app.put("/admin/:id_admin/password", async (req, res) => {
       const storedPassword = results[0].password;
 
       // ✅ Bandingkan password lama dengan yang diinput
-      const isMatch = await bcryptjs.compare(oldPassword, storedPassword);
+      const isMatch = await bcrypt.compare(oldPassword, storedPassword);
       if (!isMatch) {
         return res.status(401).send({ message: "Password lama salah." });
       }
 
       // ✅ Hash password baru sebelum menyimpannya
       const saltRounds = 10;
-      const hashedPassword = await bcryptjs.hash(newPassword, saltRounds);
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
       // Update password di database
       db.query(
