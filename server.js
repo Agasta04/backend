@@ -22,13 +22,41 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   timezone: process.env.DB_TIMEZONE,
+  multipleStatements: true, // Jika butuh eksekusi beberapa query sekaligus
 });
 
-// ✅ Koneksi ke database
+// ✅ Tangani error koneksi
 db.connect((err) => {
-  if (err) throw err;
-  console.log("Terhubung ke database MySQL.");
+  if (err) {
+    console.error("Database connection error:", err);
+    setTimeout(connectDatabase, 5000); // Coba reconnect setelah 5 detik
+  } else {
+    console.log("Terhubung ke database MySQL.");
+  }
 });
+
+// ✅ Tangani jika koneksi MySQL terputus
+db.on("error", (err) => {
+  console.error("Database error:", err);
+  if (err.code === "PROTOCOL_CONNECTION_LOST") {
+    console.log("Mencoba menghubungkan ulang ke database...");
+    connectDatabase();
+  } else {
+    throw err;
+  }
+});
+
+// ✅ Fungsi untuk reconnect otomatis jika koneksi terputus
+function connectDatabase() {
+  db.connect((err) => {
+    if (err) {
+      console.error("Gagal menyambungkan ulang ke database:", err);
+      setTimeout(connectDatabase, 5000);
+    } else {
+      console.log("Koneksi ke database berhasil diperbarui.");
+    }
+  });
+}
 
 // ✅ Middleware untuk debugging
 app.use((req, res, next) => {
