@@ -947,6 +947,7 @@ app.get("/admin/santri", (req, res) => {
     SELECT 
       s.id_santri,
       s.nama_santri,
+      s.nis,
       s.jenis_kelamin,
       s.wali_santri,
       s.telepon_wali,
@@ -971,6 +972,7 @@ app.get("/admin/santri", (req, res) => {
 app.post("/add-santri", async (req, res) => {
   const {
     nama_santri,
+    nis,
     password,
     jenis_kelamin,
     wali_santri,
@@ -979,9 +981,9 @@ app.post("/add-santri", async (req, res) => {
     id_kelas,
   } = req.body;
 
-  if (!nama_santri || !password || !jenis_kelamin || !id_kelas) {
+  if (!nama_santri || !nis || !password || !jenis_kelamin || !id_kelas) {
     return res.status(400).json({
-      message: "Nama, Password, Jenis Kelamin, dan id_kelas wajib diisi.",
+      message: "Nama, NIS, Password, Jenis Kelamin, dan id_kelas wajib diisi.",
     });
   }
 
@@ -992,12 +994,13 @@ app.post("/add-santri", async (req, res) => {
 
     // ✅ Simpan data santri dengan password yang telah dienkripsi dan jenis kelamin
     const insertSantri =
-      "INSERT INTO santri (nama_santri, password, jenis_kelamin, wali_santri, telepon_wali, alamat) VALUES (?, ?, ?, ?, ?, ?)";
+      "INSERT INTO santri (nama_santri, nis, password, jenis_kelamin, wali_santri, telepon_wali, alamat) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     db.query(
       insertSantri,
       [
         nama_santri,
+        nis,
         hashedPassword,
         jenis_kelamin,
         wali_santri,
@@ -1037,11 +1040,12 @@ app.post("/add-santri", async (req, res) => {
 // ✅ Update data santri (termasuk jenis kelamin)
 app.put("/update-santri/:id", (req, res) => {
   const { id } = req.params;
-  const { nama_santri, wali_santri, telepon_wali, alamat, jenis_kelamin } =
+  const { nama_santri, nis, wali_santri, telepon_wali, alamat, jenis_kelamin } =
     req.body;
 
   const query = `UPDATE santri SET 
-        nama_santri = ?, 
+        nama_santri = ?,
+        nis = ?,  
         wali_santri = ?, 
         telepon_wali = ?, 
         alamat = ?,
@@ -1050,7 +1054,7 @@ app.put("/update-santri/:id", (req, res) => {
 
   db.query(
     query,
-    [nama_santri, wali_santri, telepon_wali, alamat, jenis_kelamin, id],
+    [nama_santri, nis, wali_santri, telepon_wali, alamat, jenis_kelamin, id],
     (err, result) => {
       if (err) {
         return res
@@ -1118,6 +1122,7 @@ app.get("/ustadz", (req, res) => {
     SELECT 
       id_ustadz,
       nama_ustadz,
+      nip,
       jenis_kelamin,
       jabatan,
       telepon,
@@ -1139,6 +1144,7 @@ app.get("/ustadz", (req, res) => {
 app.post("/add-ustadz", async (req, res) => {
   const {
     nama_ustadz,
+    nip,
     password,
     jabatan,
     telepon,
@@ -1147,10 +1153,10 @@ app.post("/add-ustadz", async (req, res) => {
     jenis_kelamin,
   } = req.body;
 
-  if (!nama_ustadz || !password || !email || !jenis_kelamin) {
-    return res
-      .status(400)
-      .json({ error: "Nama, Password, Email, dan Jenis Kelamin wajib diisi" });
+  if (!nama_ustadz || !nip || !password || !email || !jenis_kelamin) {
+    return res.status(400).json({
+      error: "Nama, NIP, Password, Email, dan Jenis Kelamin wajib diisi",
+    });
   }
 
   try {
@@ -1158,13 +1164,14 @@ app.post("/add-ustadz", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const query = `INSERT INTO ustadz (nama_ustadz, password, jabatan, telepon, email, alamat, jenis_kelamin) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO ustadz (nama_ustadz, nip, password, jabatan, telepon, email, alamat, jenis_kelamin) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(
       query,
       [
         nama_ustadz,
+        nip,
         hashedPassword,
         jabatan,
         telepon,
@@ -1191,11 +1198,12 @@ app.post("/add-ustadz", async (req, res) => {
 // ✅ Update data ustadz (termasuk jenis kelamin)
 app.put("/update-ustadz/:id", (req, res) => {
   const { id } = req.params;
-  const { nama_ustadz, jabatan, telepon, email, alamat, jenis_kelamin } =
+  const { nama_ustadz, nip, jabatan, telepon, email, alamat, jenis_kelamin } =
     req.body;
 
   const query = `UPDATE ustadz SET 
-        nama_ustadz = ?, 
+        nama_ustadz = ?,
+        nip = ?,  
         jabatan = ?, 
         telepon = ?, 
         email = ?, 
@@ -1205,7 +1213,7 @@ app.put("/update-ustadz/:id", (req, res) => {
 
   db.query(
     query,
-    [nama_ustadz, jabatan, telepon, email, alamat, jenis_kelamin, id],
+    [nama_ustadz, nip, jabatan, telepon, email, alamat, jenis_kelamin, id],
     (err, result) => {
       if (err) {
         return res

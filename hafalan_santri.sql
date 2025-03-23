@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2025 at 07:42 AM
+-- Generation Time: Mar 23, 2025 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
   `nama_admin` varchar(100) NOT NULL,
+  `nip` varchar(20) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `jabatan` varchar(100) NOT NULL DEFAULT 'Staff',
   `password` varchar(255) NOT NULL,
@@ -43,8 +44,8 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `nama_admin`, `jenis_kelamin`, `jabatan`, `password`, `telepon`, `email`, `alamat`, `created_at`) VALUES
-(1, 'Pratama', 'Laki-laki', 'Admin Utama', '$2b$10$6ADBVExKUTmYKbqDTzDDgugNIJglUD/4b3.egzbDtL/9.RcYQvF1e', '081234567880', 'admin@gmail.com', 'Jl. Barokah No.19', '2025-02-11 05:53:03');
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `nip`, `jenis_kelamin`, `jabatan`, `password`, `telepon`, `email`, `alamat`, `created_at`) VALUES
+(1, 'Pratama', '001', 'Laki-laki', 'Admin Utama', '$2b$10$6ADBVExKUTmYKbqDTzDDgugNIJglUD/4b3.egzbDtL/9.RcYQvF1e', '081234567880', 'admin@gmail.com', 'Jl. Barokah No.19', '2025-02-11 05:53:03');
 
 -- --------------------------------------------------------
 
@@ -143,7 +144,8 @@ INSERT INTO `kelas_santri` (`id_ks`, `id_kelas`, `id_santri`) VALUES
 (13, 5, 15),
 (14, 6, 16),
 (15, 6, 17),
-(16, 6, 18);
+(16, 6, 18),
+(17, 6, 19);
 
 -- --------------------------------------------------------
 
@@ -154,6 +156,7 @@ INSERT INTO `kelas_santri` (`id_ks`, `id_kelas`, `id_santri`) VALUES
 CREATE TABLE `santri` (
   `id_santri` int(11) NOT NULL,
   `nama_santri` varchar(100) NOT NULL,
+  `nis` varchar(20) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `password` varchar(255) NOT NULL,
   `wali_santri` varchar(100) DEFAULT NULL,
@@ -166,22 +169,23 @@ CREATE TABLE `santri` (
 -- Dumping data for table `santri`
 --
 
-INSERT INTO `santri` (`id_santri`, `nama_santri`, `jenis_kelamin`, `password`, `wali_santri`, `telepon_wali`, `alamat`, `created_at`) VALUES
-(1, 'Ahmad', 'Laki-laki', '$2b$10$4EAwfGap7/J5A895hM53C.izuvpDxCS.cCymaE0ZUIhmdwfU3/53m', 'Bapak Rahmat', '081234567899', 'Jl. Merdeka No.1', '2025-02-11 05:52:21'),
-(2, 'Fauzan', 'Laki-laki', '$2b$10$8miFRcLEiCPgIdiBg0EM.eaTMGHmGnUqrdx7/HOjGoG.zJ2OSOgTm', 'Ibu Siti', '082345678901', 'Jl. Kebangsaan No.23', '2025-02-11 05:52:21'),
-(3, 'Zainab', 'Perempuan', '$2b$10$N/6B/iXeVkCJYNH84a806u/67iGb4KxfLmeKrZjmxaSq.rCIA.4uC', 'Bapak Zaki', '083456789012', 'Jl. Sejahtera No.45', '2025-02-11 05:52:21'),
-(4, 'Aliyah', 'Perempuan', '$2b$10$BISEswu2V9NOyqRegTWMde4ZBChYZULuLefHVmsM9sKqnQCO18KbC', 'Ibu Fauziyah', '084567890123', 'Jl. Harmoni No.67', '2025-02-11 05:52:21'),
-(5, 'Agasta', 'Laki-laki', '$2b$10$r/VUcWmmB.togxS9tlgMU.X21QmTPo8E19WCrfo9Lo4XazE5qV1de', 'Ibu Lies', '084567890098', 'Jl. Indah No.02', '2025-02-11 05:52:21'),
-(6, 'Rizky', 'Laki-laki', '$2b$10$09q1GE3pSH4r0daAOldrQ.WVCu4piDBMbmZpgDfatAbq101nP.ETy', 'Bapak Hendra', '085678901234', 'Jl. Damai No.78', '2025-02-11 05:52:21'),
-(7, 'Nadia', 'Perempuan', '$2b$10$quSl6/AguQj56iL8.sMhPuP5OwgbB6wAnJpCeZLDUXHIAG5f.tl6S', 'Ibu Fitri', '086789012345', 'Jl. Mawar No.10', '2025-02-11 05:52:21'),
-(8, 'Salma', 'Perempuan', '$2b$10$S81rRvJbGJDPr0JSqn53WeZfel6SKXS6A3PAf5aFRuUSU7iM8Z3zS', 'Bapak Abdullah', '087890123456', 'Jl. Melati No.88', '2025-02-11 05:52:21'),
-(9, 'Jafar', 'Laki-laki', '$2b$10$Srm9pTA2whMM0X7Ik2sQwuGnX1yYYwbFPZkQGDxgkfr3BIeQuAXmy', 'Ibu Hanifah', '088901234567', 'Jl. Kenanga No.21', '2025-02-11 05:52:21'),
-(10, 'Hafidz', 'Laki-laki', '$2b$10$q2sZpU.gmffZ.Mzvxa9I8e9FLQhbDQDcGwCr9hpajwoSyvYdUI0NS', 'Bapak Wahyu', '089012345678', 'Jl. Anggrek No.33', '2025-02-11 05:52:21'),
-(14, 'Dava', 'Laki-laki', '$2b$10$AJHhyghn/3rm7JabMDg4xeB3tXECF8uUHRJYPAUNO8fU7Z20lifVe', 'Bapak Udin', '0123456789', 'Banjarnegara', '2025-02-15 15:58:51'),
-(15, 'Wizard', 'Laki-laki', '$2b$10$v1m1RXWhIXQJA.S1MC6DgekNKMdmswMkhBrkCrHaVB6Kn1o4JgPwK', 'Wahyu', '0123456789', 'Embuh', '2025-02-18 10:09:29'),
-(16, 'Balmond', 'Laki-laki', '$2b$10$nGV6gP4JADpntB8LWu3UJu/AWAo6z7QM9SyQn6mZiEgzz2H098iSK', 'Bapak ilham', '09183256527217', 'Lan of down', '2025-02-18 11:02:36'),
-(17, 'Rizal', 'Laki-laki', '$2b$10$ofKHMeZxl/3iBAUlZSjjfO3OcyMhHwp4DLCJC1kAObmS4HniA/RKe', 'Ibu Wahyu', '0123456789', 'Dukuwaluh', '2025-02-28 15:10:16'),
-(18, 'Kevin', 'Laki-laki', '$2b$10$wTzvN5UuKAQPxJX5I3zrduoNvYIqW3G7wmy1ZKN6Ak1WxizAM5nzK', 'Bapak Indra', '08123456789', 'Banjarnegara', '2025-03-07 15:34:17');
+INSERT INTO `santri` (`id_santri`, `nama_santri`, `nis`, `jenis_kelamin`, `password`, `wali_santri`, `telepon_wali`, `alamat`, `created_at`) VALUES
+(1, 'Ahmad', '001', 'Laki-laki', '$2b$10$4EAwfGap7/J5A895hM53C.izuvpDxCS.cCymaE0ZUIhmdwfU3/53m', 'Bapak Rahmat', '081234567899', 'Jl. Merdeka No.1', '2025-02-11 05:52:21'),
+(2, 'Fauzan', '002', 'Laki-laki', '$2b$10$8miFRcLEiCPgIdiBg0EM.eaTMGHmGnUqrdx7/HOjGoG.zJ2OSOgTm', 'Ibu Siti', '082345678901', 'Jl. Kebangsaan No.23', '2025-02-11 05:52:21'),
+(3, 'Zainab', '003', 'Perempuan', '$2b$10$N/6B/iXeVkCJYNH84a806u/67iGb4KxfLmeKrZjmxaSq.rCIA.4uC', 'Bapak Zaki', '083456789012', 'Jl. Sejahtera No.45', '2025-02-11 05:52:21'),
+(4, 'Aliyah', '004', 'Perempuan', '$2b$10$BISEswu2V9NOyqRegTWMde4ZBChYZULuLefHVmsM9sKqnQCO18KbC', 'Ibu Fauziyah', '084567890123', 'Jl. Harmoni No.67', '2025-02-11 05:52:21'),
+(5, 'Agasta', '005', 'Laki-laki', '$2b$10$r/VUcWmmB.togxS9tlgMU.X21QmTPo8E19WCrfo9Lo4XazE5qV1de', 'Ibu Lies', '084567890098', 'Jl. Indah No.02', '2025-02-11 05:52:21'),
+(6, 'Rizky', '006', 'Laki-laki', '$2b$10$09q1GE3pSH4r0daAOldrQ.WVCu4piDBMbmZpgDfatAbq101nP.ETy', 'Bapak Hendra', '085678901234', 'Jl. Damai No.78', '2025-02-11 05:52:21'),
+(7, 'Nadia', '007', 'Perempuan', '$2b$10$quSl6/AguQj56iL8.sMhPuP5OwgbB6wAnJpCeZLDUXHIAG5f.tl6S', 'Ibu Fitri', '086789012345', 'Jl. Mawar No.10', '2025-02-11 05:52:21'),
+(8, 'Salma', '008', 'Perempuan', '$2b$10$S81rRvJbGJDPr0JSqn53WeZfel6SKXS6A3PAf5aFRuUSU7iM8Z3zS', 'Bapak Abdullah', '087890123456', 'Jl. Melati No.88', '2025-02-11 05:52:21'),
+(9, 'Jafar', '009', 'Laki-laki', '$2b$10$Srm9pTA2whMM0X7Ik2sQwuGnX1yYYwbFPZkQGDxgkfr3BIeQuAXmy', 'Ibu Hanifah', '088901234567', 'Jl. Kenanga No.21', '2025-02-11 05:52:21'),
+(10, 'Hafidz', '010', 'Laki-laki', '$2b$10$q2sZpU.gmffZ.Mzvxa9I8e9FLQhbDQDcGwCr9hpajwoSyvYdUI0NS', 'Bapak Wahyu', '089012345678', 'Jl. Anggrek No.33', '2025-02-11 05:52:21'),
+(14, 'Dava', '011', 'Laki-laki', '$2b$10$AJHhyghn/3rm7JabMDg4xeB3tXECF8uUHRJYPAUNO8fU7Z20lifVe', 'Bapak Udin', '0123456789', 'Banjarnegara', '2025-02-15 15:58:51'),
+(15, 'Wizard', '012', 'Laki-laki', '$2b$10$v1m1RXWhIXQJA.S1MC6DgekNKMdmswMkhBrkCrHaVB6Kn1o4JgPwK', 'Wahyu', '0123456789', 'Embuh', '2025-02-18 10:09:29'),
+(16, 'Balmond', '013', 'Laki-laki', '$2b$10$nGV6gP4JADpntB8LWu3UJu/AWAo6z7QM9SyQn6mZiEgzz2H098iSK', 'Bapak ilham', '09183256527217', 'Lan of down', '2025-02-18 11:02:36'),
+(17, 'Rizal', '014', 'Laki-laki', '$2b$10$ofKHMeZxl/3iBAUlZSjjfO3OcyMhHwp4DLCJC1kAObmS4HniA/RKe', 'Ibu Wahyu', '0123456789', 'Dukuwaluh', '2025-02-28 15:10:16'),
+(18, 'Kevin', '015', 'Laki-laki', '$2b$10$wTzvN5UuKAQPxJX5I3zrduoNvYIqW3G7wmy1ZKN6Ak1WxizAM5nzK', 'Bapak Indra', '08123456789', 'Banjarnegara', '2025-03-07 15:34:17'),
+(19, 'Rafi', '017', 'Laki-laki', '$2b$10$oQ1xvJKQbe05CtbJ7WMkI.6cIuDicrZdGlyaU6sl7M9haJ1T0JLpO', 'Bapak Udin', '02134567891', 'Banyumas', '2025-03-21 09:53:21');
 
 -- --------------------------------------------------------
 
@@ -192,6 +196,7 @@ INSERT INTO `santri` (`id_santri`, `nama_santri`, `jenis_kelamin`, `password`, `
 CREATE TABLE `ustadz` (
   `id_ustadz` int(11) NOT NULL,
   `nama_ustadz` varchar(100) NOT NULL,
+  `nip` varchar(20) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `jabatan` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -205,14 +210,15 @@ CREATE TABLE `ustadz` (
 -- Dumping data for table `ustadz`
 --
 
-INSERT INTO `ustadz` (`id_ustadz`, `nama_ustadz`, `jenis_kelamin`, `jabatan`, `password`, `telepon`, `email`, `alamat`, `created_at`) VALUES
-(1, 'Hasan', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$q50lcdh/kMCV63Vy3kiZKO.W2wKT9T87/yx2HK5HEUvgOGNRYpesG', '081345678901', 'ustadz@gmail.com', 'Jl. Islami No.10', '2025-02-11 05:52:42'),
-(2, 'Fatimah', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$4PoiXriuuDj7DmK23tEZteseBFR8AzpMUT5bz8GrBmBsKnDTSCk1q', '082456789012', 'ustadz@gmail.com', 'Jl. Madani No.12', '2025-02-11 05:52:42'),
-(3, 'Ali', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$ITG3qIyaZjElC52.d7Dfqul6n9LO5vkAKRp2bbvDckHUtzL5sUqbS', '083567890123', 'ustadz@gmail.com', 'Jl. Hidayah No.15', '2025-02-11 05:52:42'),
-(4, 'Aisyah', 'Perempuan', 'Ustadzah Asrama Putri', '$2b$10$5YlFvMDnETKAi5Fnqk6C6uLd76ndf9HrQpMuqZOyWUFx7VPfnXIy2', '084678901234', 'aisyah@gmail.com', 'Jl. Barokah No.18', '2025-02-11 05:52:42'),
-(7, 'Bayu', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$mPAh9Cq.pxVuKI9JMsPewOIfVxLnVyvV0dEmrhhiyjw3LBrdtUYy.', '09886767123', 'bayu@gmail.com', 'Desa pingit, Kecamatan Rakit', '2025-02-15 06:57:57'),
-(10, 'Hanan', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$qYMijzzUMTWBC09xhAgKVuqp2m./qQZeeRx0rRxFBu2WigjJwayri', '0123456789', 'hanan@gmai.com', 'Dukuwaluh', '2025-02-28 15:18:37'),
-(11, 'Afanin', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$bCwKzzTHVORy.bQc74d83u9TmGAloqDduD9atcsyDlLWavc3EVMQO', '08123456798', 'afanin@gmail.com', 'Banyumas', '2025-03-07 15:10:03');
+INSERT INTO `ustadz` (`id_ustadz`, `nama_ustadz`, `nip`, `jenis_kelamin`, `jabatan`, `password`, `telepon`, `email`, `alamat`, `created_at`) VALUES
+(1, 'Hasan', '001', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$q50lcdh/kMCV63Vy3kiZKO.W2wKT9T87/yx2HK5HEUvgOGNRYpesG', '081345678901', 'ustadz@gmail.com', 'Jl. Islami No.10', '2025-02-11 05:52:42'),
+(2, 'Fatimah', '002', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$4PoiXriuuDj7DmK23tEZteseBFR8AzpMUT5bz8GrBmBsKnDTSCk1q', '082456789012', 'ustadz@gmail.com', 'Jl. Madani No.12', '2025-02-11 05:52:42'),
+(3, 'Ali', '003', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$ITG3qIyaZjElC52.d7Dfqul6n9LO5vkAKRp2bbvDckHUtzL5sUqbS', '083567890123', 'ustadz@gmail.com', 'Jl. Hidayah No.15', '2025-02-11 05:52:42'),
+(4, 'Aisyah', '004', 'Perempuan', 'Ustadzah Asrama Putri', '$2b$10$5YlFvMDnETKAi5Fnqk6C6uLd76ndf9HrQpMuqZOyWUFx7VPfnXIy2', '084678901234', 'aisyah@gmail.com', 'Jl. Barokah No.18', '2025-02-11 05:52:42'),
+(7, 'Bayu', '005', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$mPAh9Cq.pxVuKI9JMsPewOIfVxLnVyvV0dEmrhhiyjw3LBrdtUYy.', '09886767123', 'bayu@gmail.com', 'Desa pingit, Kecamatan Rakit', '2025-02-15 06:57:57'),
+(10, 'Hanan', '006', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$qYMijzzUMTWBC09xhAgKVuqp2m./qQZeeRx0rRxFBu2WigjJwayri', '0123456789', 'hanan@gmai.com', 'Dukuwaluh', '2025-02-28 15:18:37'),
+(11, 'Afanin', '007', 'Perempuan', 'Ustadz Asrama Putri', '$2b$10$bCwKzzTHVORy.bQc74d83u9TmGAloqDduD9atcsyDlLWavc3EVMQO', '08123456798', 'afanin@gmail.com', 'Banyumas', '2025-03-07 15:10:03'),
+(12, 'Roni', '009', 'Laki-laki', 'Ustadz Asrama Putra', '$2b$10$F3AzLKqV2513N54MgL7uPuHEo1ezZ.GwG9yN8Saybcj6oNYFBX3HG', '02134567891', 'roni@gmail.com', 'Banjarnegara', '2025-03-21 10:07:27');
 
 --
 -- Indexes for dumped tables
@@ -222,7 +228,8 @@ INSERT INTO `ustadz` (`id_ustadz`, `nama_ustadz`, `jenis_kelamin`, `jabatan`, `p
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id_admin`);
+  ADD PRIMARY KEY (`id_admin`),
+  ADD UNIQUE KEY `NIP` (`nip`);
 
 --
 -- Indexes for table `hafalan`
@@ -250,13 +257,15 @@ ALTER TABLE `kelas_santri`
 -- Indexes for table `santri`
 --
 ALTER TABLE `santri`
-  ADD PRIMARY KEY (`id_santri`);
+  ADD PRIMARY KEY (`id_santri`),
+  ADD UNIQUE KEY `NIS` (`nis`);
 
 --
 -- Indexes for table `ustadz`
 --
 ALTER TABLE `ustadz`
-  ADD PRIMARY KEY (`id_ustadz`);
+  ADD PRIMARY KEY (`id_ustadz`),
+  ADD UNIQUE KEY `NIP` (`nip`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -284,19 +293,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_santri`
 --
 ALTER TABLE `kelas_santri`
-  MODIFY `id_ks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_ks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id_santri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_santri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `ustadz`
 --
 ALTER TABLE `ustadz`
-  MODIFY `id_ustadz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_ustadz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
