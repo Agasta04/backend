@@ -471,7 +471,8 @@ app.get("/kelas/:classId/santri", (req, res) => {
     SELECT 
       ks.id_ks, -- Menambahkan id_ks dari tabel kelas_santri
       s.id_santri, 
-      s.nama_santri AS nama_santri, 
+      s.nama_santri AS nama_santri,
+      s.nis, 
       s.wali_santri,
       s.jenis_kelamin,  
       s.telepon_wali, 
